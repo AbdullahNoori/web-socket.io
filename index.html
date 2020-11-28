@@ -47,6 +47,7 @@
         <input id="user" autocomplete="off" /><button id="join-button">Join</button>
       </form>
 
+
     </div>
 
     <script src="/socket.io/socket.io.js"></script>
@@ -84,6 +85,14 @@
 
         socket.on('new user', (username) => {
           $('#messages').append($('<li>').text(username+" has joined!"));
+        });
+
+        //Refresh the online user list
+        socket.on('user has left', (username) => {
+          if (username != null) {
+            $('#messages').append($('<li>').text(username+" has left!"));
+            window.scrollTo(0, document.body.scrollHeight);
+          } 
         });
 
       });
